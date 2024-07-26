@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=delvelopment nodemon index.js",
     "build:ui": "rm -rf build && cd ../frontend/ && npm run build && cp -r build ../backend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
     "logs:prod": "fly logs",
     "lint": "eslint .",
-    "test": "node --test"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "keywords": [],
   "author": "Hugo",
@@ -20,11 +20,16 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
     "lodash": "^4.17.21",
     "mongoose": "^8.5.1",
     "winston": "^3.13.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "assert": "^2.1.0",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
   }
 }

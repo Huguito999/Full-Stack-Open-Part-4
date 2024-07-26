@@ -16,7 +16,7 @@ app.use('/api/blogs', blogRouter);
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
-mongoose.connect(config.MONGO_URL)
+mongoose.connect(config.MONGODB_URI)
     .then(() => {
         logger.info('Connected to MongoDB');
     })

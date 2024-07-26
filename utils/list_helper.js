@@ -1,17 +1,13 @@
-const _ = require('lodash');
-const dummy = (blogs) => {
-    return 1;
-}
 const totalLikes = (blogs) => {
     return blogs.reduce((sum, blog) => sum + blog.likes, 0);
-}
+};
+
 const favoriteBlog = (blogs) => {
-    if (blogs.length === 0) return null;
+    if (blogs.length === 0) {
+        return null;
+    }
 
-    const favorite = blogs.reduce((prev, curr) => {
-        return curr.likes > prev.likes ? curr : prev;
-    });
-
+    const favorite = blogs.reduce((prev, current) => (prev.likes > current.likes) ? prev : current);
     return {
         title: favorite.title,
         author: favorite.author,
@@ -20,44 +16,44 @@ const favoriteBlog = (blogs) => {
 };
 
 const mostBlogs = (blogs) => {
-    if (blogs.length === 0) return null;
+    if (blogs.length === 0) {
+        return null;
+    }
 
-    const authorBlogCount = _.countBy(blogs, 'author');
+    const authors = blogs.reduce((acc, blog) => {
+        acc[blog.author] = (acc[blog.author] || 0) + 1;
+        return acc;
+    }, {});
 
-
-    const mostBlogsAuthor = _.maxBy(
-        Object.entries(authorBlogCount),
-        ([author, count]) => count
-    );
+    const maxBlogs = Object.keys(authors).reduce((a, b) => authors[a] > authors[b] ? a : b);
 
     return {
-        author: mostBlogsAuthor[0],
-        blogs: mostBlogsAuthor[1]
+        author: maxBlogs,
+        blogs: authors[maxBlogs]
     };
 };
+
 const mostLikes = (blogs) => {
-    if (blogs.length === 0) return null;
+    if (blogs.length === 0) {
+        return null;
+    }
 
-    const groupedByAuthor = _.groupBy(blogs, 'author');
+    const authors = blogs.reduce((acc, blog) => {
+        acc[blog.author] = (acc[blog.author] || 0) + blog.likes;
+        return acc;
+    }, {});
 
-    const authorLikes = _.mapValues(groupedByAuthor, (blogs) =>
-        _.sumBy(blogs, 'likes')
-    );
-
-    const mostLikesAuthor = _.maxBy(
-        Object.entries(authorLikes),
-        ([author, likes]) => likes
-    );
+    const maxLikes = Object.keys(authors).reduce((a, b) => authors[a] > authors[b] ? a : b);
 
     return {
-        author: mostLikesAuthor[0],
-        likes: mostLikesAuthor[1]
+        author: maxLikes,
+        likes: authors[maxLikes]
     };
 };
+
 module.exports = {
-    dummy,
     totalLikes,
     favoriteBlog,
     mostBlogs,
     mostLikes
-}
+};

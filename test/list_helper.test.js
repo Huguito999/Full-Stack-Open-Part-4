@@ -1,5 +1,3 @@
-const { test, describe } = require('node:test');
-const assert = require('node:assert');
 const listHelper = require('../utils/list_helper');
 
 describe('total likes', () => {
@@ -67,17 +65,17 @@ describe('total likes', () => {
 
     test('of empty list is zero', () => {
         const result = listHelper.totalLikes([]);
-        assert.strictEqual(result, 0);
+        expect(result).toBe(0);
     });
 
     test('when list has only one blog, equals the likes of that', () => {
         const result = listHelper.totalLikes(listWithOneBlog);
-        assert.strictEqual(result, 5);
+        expect(result).toBe(5);
     });
 
     test('when list has multiple blogs, equals the sum of likes', () => {
         const result = listHelper.totalLikes(blogs);
-        assert.strictEqual(result, 36);
+        expect(result).toBe(36);
     });
 });
 
@@ -140,14 +138,15 @@ describe('favoriteBlog', () => {
             author: "Edsger W. Dijkstra",
             likes: 12
         };
-        assert.deepStrictEqual(result, expected);
+        expect(result).toEqual(expected);
     });
 
     test('when list is empty, equals null', () => {
         const result = listHelper.favoriteBlog([]);
-        assert.strictEqual(result, null);
+        expect(result).toBeNull();
     });
 });
+
 describe('mostBlogs', () => {
     const blogs = [
         {
@@ -206,14 +205,15 @@ describe('mostBlogs', () => {
             author: "Robert C. Martin",
             blogs: 3
         };
-        assert.deepStrictEqual(result, expected);
+        expect(result).toEqual(expected);
     });
 
     test('when list is empty, equals null', () => {
         const result = listHelper.mostBlogs([]);
-        assert.strictEqual(result, null);
+        expect(result).toBeNull();
     });
 });
+
 describe('mostLikes', () => {
     const blogs = [
         {
@@ -272,11 +272,11 @@ describe('mostLikes', () => {
             author: "Edsger W. Dijkstra",
             likes: 17
         };
-        assert.deepStrictEqual(result, expected);
+        expect(result).toEqual(expected);
     });
 
     test('when list is empty, equals null', () => {
         const result = listHelper.mostLikes([]);
-        assert.strictEqual(result, null);
+        expect(result).toBeNull();
     });
 });
