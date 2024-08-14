@@ -1,6 +1,6 @@
 const express = require("express");
 const Blog = require("../models/blog");
-const User = require('../models/user');
+const User = require("../models/user");
 const { tokenExtractor, userExtractor } = require("../utils/middleware");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -9,7 +9,10 @@ router.use(tokenExtractor);
 
 router.get("/", async (req, res) => {
   try {
-    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 });
+    const blogs = await Blog.find({}).populate("user", {
+      username: 1,
+      name: 1,
+    });
     res.json(blogs);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
